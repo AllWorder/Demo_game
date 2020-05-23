@@ -25,12 +25,12 @@ public:
     std::vector <qqq::Component*> scripts;
     std::vector <qqq::Component*> colliders; /////////////////////////
 
-    ~GameObject()
+    void kostylDestructor()
     {
         for (qqq::Component* component : components)
         {
             std::cout << "    " << component->name << std::endl;
-            delete component;
+            deleteComponentByPointer(component);
             std::cout << "    deleted" << std::endl;
         }
     }
@@ -82,34 +82,14 @@ public:
         return nullptr;
     }
 
-    template <typename T>
+    template<typename T>
     bool deleteComponent()
     {
-        qqqP::Singleton* singleton = qqqP::Singleton::getInstance();
-
-        if (typeid(T).name() == typeid(qqq::Renderer).name())  
-        {
-            singleton->graphics_manager.removeRenderer(getComponent<T>());
-        }
-        else if ( typeid(T).name() == typeid(qqq::Collider).name() )
-        {
-            singleton->physics_manager.removeCollider(getComponent<T>());
-        }
-        else if (std::is_base_of<qqq::Script, T>())
-        {
-            singleton->script_manager.removeScript(getComponent<T>());
-        }
-
-        std::string name = typeid(T).name();
-
         for (int i = 0; i < components.size(); i++)
         {
-            if (components[i]->name == name)
+            if (typeid(components[i]).name() == typeid(T).name())
             {
-                std::cout << "deleteComponent: " << components.size() << std::endl;
-                delete components[i];
-                components.erase(components.begin() + i);
-                std::cout << "deleteComponent: " << components.size() << ")" << std::endl;
+                deleteComponentByPointer(components[i]);
                 return true;
             }
         }
@@ -119,7 +99,7 @@ public:
     void record(std::string id)
     {
         qqqP::Singleton* singleton = qqqP::Singleton::getInstance();
-        singleton->data_storage.addObject(id, this );
+        singleton->data_storage.addObject(id, this);
     }
 
     void moveVdt()
@@ -132,7 +112,38 @@ public:
 
 private:
     
-    std::vector<qqq::Component*> components;   
+    std::vector<qqq::Component*> components;
+
+    bool deleteComponentByPointer(qqq::Component* deliting_component)
+    {
+        qqqP::Singleton* singleton = qqqP::Singleton::getInstance();
+
+        if (deliting_component->manager == 'g')  
+        {
+            singleton->graphics_manager.removeRenderer(deliting_component);
+        }
+        else if (deliting_component->manager == 'c')
+        {
+            singleton->physics_manager.removeCollider(deliting_component);
+        }
+        else if (deliting_component->manager == 's')
+        {
+            singleton->script_manager.removeScript(deliting_component);
+        }
+
+        for (int i = 0; i < components.size(); i++)
+        {
+            if (components[i] == deliting_component)
+            {
+                //std::cout << "deleteComponent: " << components.size() << std::endl;
+                //delete components[i];
+                components.erase(components.begin() + i);
+                //std::cout << "deleteComponent: " << components.size() << ")" << std::endl;
+                return true;
+            }
+        }
+        return false;
+    }
     
 };
 

@@ -15,6 +15,7 @@ bool qqqP::ScriptManager::addScript(qqq::Component* new_script)
     try
     {
         scripts.push_back(static_cast<qqq::Script*>(new_script));
+        new_script->manager = 's';
         return true;
     }
     catch(...)

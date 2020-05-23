@@ -42,6 +42,7 @@ bool qqqP::GraphicsManager::addRenderer(qqq::Component* new_renderer)
     try
     {
         renderers.push_back(static_cast<qqq::RendererBase*>(new_renderer));
+        new_renderer->manager = 'g';
         return true;
     }
     catch(...)

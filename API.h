@@ -37,6 +37,7 @@ namespace qqqP
     class ParticleCircle;
     class ParticleSquare;
     class ParticleDirectMotion;
+    class Telomere;
 }
 
 #endif

@@ -10,6 +10,7 @@ class qqq::Component
 {
 public:
     std::string name;
+    char manager;
     qqq::GameObject* owner;
 };
 

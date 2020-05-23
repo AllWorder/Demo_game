@@ -21,6 +21,21 @@ void qqqP::ParticleSquare::draw(sf::RenderWindow& window)
     window.draw(square);
 }
 
+class qqqP::Telomere: public qqq::Script
+{
+public:
+    float telomere;
+
+    void update()
+    {
+        telomere -= qqq::relativeTime();
+        if (telomere <= 0)
+        {
+            owner->kostylDestructor();
+        }
+    }
+};
+
 void qqqP::ParticleDirectMotion::setParameters(float vx, float vy, float r)
 {
     owner->new_velocity[0] = vx;
@@ -37,10 +52,11 @@ void qqqP::ParticleDirectMotion::update()
     owner->new_velocity[1] -= resistance * owner->new_velocity[1] * dt;
 }
 
-void qqq::ParticleSource::setParameters(float frequency, float v, float direction, float resistsnce, std::vector<int> source_size, float direction_variation)
+void qqq::ParticleSource::setParameters(float frequency, float v, float life_time, float direction, float resistsnce, std::vector<int> source_size, float direction_variation)
 {
     this->frequency = frequency;
     this->v = v;
+    this->life_time = life_time;
     this->direction = (direction == -1 ? -1 : - direction * M_PI / 180);
     this->resistsnce = resistsnce;
     this->source_size = source_size;
@@ -77,6 +93,10 @@ void qqq::ParticleSource::update()
         timer = 1/frequency;
 
         qqq::GameObject *particle = new qqq::GameObject;
+
+        particle->addComponent<qqqP::Telomere>();
+        particle->getComponent<qqqP::Telomere>()->telomere = life_time;
+
 
         particle->addComponent<qqqP::ParticleDirectMotion>();
         float phi = (direction == -1 ? (random()%100)/100.0 * (2*M_PI) :

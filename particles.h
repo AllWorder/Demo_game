@@ -40,6 +40,7 @@ public:
     std::string type;
     float frequency;
     float v;
+    float life_time;
     float resistsnce;
     std::vector<int> source_size;
     float direction;
@@ -51,7 +52,7 @@ public:
 
     static int quantity_of_particles;
 
-    void setParameters(float frequency, float v, float direction = -1, float resistsnce = 0, std::vector<int> source_size = {5,5}, float direction_variation = 10);
+    void setParameters(float frequency, float v, float life_time, float direction = -1, float resistsnce = 0, std::vector<int> source_size = {5,5}, float direction_variation = 10);
     void setCircle(float size, int R, int G, int B);
     void setSquare(float size, int R, int G, int B);
     void setPicture(std::string texture_name);

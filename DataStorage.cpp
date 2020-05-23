@@ -6,16 +6,16 @@
 #include "DataStorage.h"
 
 
-qqqP::DataStorage::~DataStorage(){
+// qqqP::DataStorage::~DataStorage(){
 
-    for (auto item : map_of_game_objects)
-    {
-        std::cout << item.second->id_in_data_storage << std::endl;
-        if (item.second->dynamic)
-            delete item.second;
-        std::cout << "successfully" << std::endl << std::endl;
-    }
-};
+//     for (auto item : map_of_game_objects)
+//     {
+//         std::cout << item.second->id_in_data_storage << std::endl;
+//         if (item.second->dynamic)
+//             delete item.second;
+//         std::cout << "successfully" << std::endl << std::endl;
+//     }
+// };
 
 //////////////DELETING AND ADDING OBJECTS///////////////////
 

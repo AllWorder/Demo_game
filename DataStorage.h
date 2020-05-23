@@ -10,7 +10,6 @@
 
 class qqqP::DataStorage{
     public:
-        ~DataStorage();
         bool addObject(std::string object_name, qqq::GameObject* obj);
         bool deleteObject(std::string object_name);
         void setVectorOfRelativeHitboxCoordinatesByName(std::string name_of_picture, std::vector < std::vector<int> > vector_of_coordinates);
@@ -24,9 +23,6 @@ class qqqP::DataStorage{
 };
 
 #endif
-
-
-
     
 
 

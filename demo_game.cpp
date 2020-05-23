@@ -140,11 +140,14 @@ class GoodPlateBehavior: public qqq::Script
         if ((another->id_in_data_storage == "player"))
         {
             another->getComponent<Health>()->BRS += 1;
+            this->owner->position[0] = 5000;
+            this->owner->getComponent<qqq::PolygonReflection>()->update();
         }
 
         if ((another->id_in_data_storage == "wall1"))
         {
-            // NEED TO ADD DELETION
+            this->owner->position[0] = 5000;
+            this->owner->getComponent<qqq::PolygonReflection>()->update();
         }
     }
 };
@@ -156,12 +159,17 @@ class BadPlateBehavior: public qqq::Script
         if ((another->id_in_data_storage == "player"))
         {
             another->getComponent<Health>()->health -= 1;
+            
+            this->owner->position[0] = 5000;
+            this->owner->getComponent<qqq::PolygonReflection>()->update();
         }
 
         if ((another->id_in_data_storage == "wall1"))
         {
-            // NEED TO ADD DELETION
+            this->owner->position[0] = 5000;
+            this->owner->getComponent<qqq::PolygonReflection>()->update();
         }
+
     }
 };
 
@@ -252,8 +260,7 @@ int main()
     plate_spawner.record("plate_spawner");
 
     //WALLS:
-    // POKA NET UDALENIYA TUPO UBEREM EE 
-    /*
+   
     qqq::GameObject Wall1;
     Wall1.addComponent<qqq::Collider>();
     Wall1.addComponent<qqq::Renderer>();
@@ -264,7 +271,6 @@ int main()
     Wall1.mass = +INFINITY;
     Wall1.addComponent<UpdateColliderObject>();
     Wall1.record("wall1");
-    */
 
     qqq::GameObject Wall2;
     Wall2.addComponent<qqq::Collider>();
